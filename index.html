@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BWIC Consults — Building with Purpose</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0d1b2a;
+      --muted: #6b7280;
+      --accent: #E0A458;
+      /* golden */
+      --primary: #0D1B2A;
+      /* deep navy */
+      --card: #ffffff;
+      --glass: rgba(13, 27, 42, 0.06);
+    }
+
+    .dark-mode {
+      --bg: #071428;
+      --text: #e6eef6;
+      --muted: #b9c6d6;
+      --accent: #E0A458;
+      --primary: #0D1B2A;
+      --card: #0b1620;
+      --glass: rgba(255, 255, 255, 0.03);
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: var(--card);
+      backdrop-filter: blur(4px);
+    }
+
+    .navbar .navbar-brand {
+      font-weight: 700;
+      color: var(--primary)
+    }
+
+    .nav-link {
+      color: var(--text) !important
+    }
+
+    .nav-link:focus,
+    .nav-link:hover {
+      color: var(--accent) !important
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 66vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .hero .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
+      mix-blend-mode: multiply;
+    }
+
+    .hero .hero-inner {
+      position: relative;
+      z-index: 2
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #111;
+      border: none;
+    }
+
+    .btn-accent:hover {
+      opacity: 0.95
+    }
+
+    /* Services */
+    .service-card {
+      transition: transform .35s ease, box-shadow .35s ease;
+      border-radius: 12px;
+      background: var(--card)
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12)
+    }
+
+    /* Projects */
+    .project-card {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card);
+      transition: transform .35s, box-shadow .35s
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease
+    }
+
+    .project-card .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: end;
+      padding: 1rem;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.45));
+      color: white
+    }
+
+    .project-card:hover img {
+      transform: scale(1.08)
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 50px rgba(2, 6, 23, 0.14)
+    }
+
+    /* CTA strip */
+    .cta-strip {
+      border-radius: 10px
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: #fff
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      width: 48px;
+      height: 32px;
+      border-radius: 20px;
+      background: var(--glass);
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
+      cursor: pointer
+    }
+
+    .theme-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform .2s
+    }
+
+    /* Responsive tweaks */
+    @media (max-width:768px) {
+      .hero {
+        min-height: 48vh
+      }
+
+      .project-card img {
+        height: 180px
+      }
+    }
+
+    /* Accessibility: focus */
+    a:focus,
+    button:focus,
+    input:focus,
+    textarea:focus {
+      outline: 3px solid rgba(224, 164, 88, 0.22);
+      outline-offset: 2px
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">BWIC Consults</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">☰</span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#process">Process</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-3">
+            <div role="button" class="theme-toggle" id="themeToggle" title="Toggle light / dark"
+              aria-label="Toggle theme">
+              <div class="theme-dot" id="themeDot"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO (parallax) -->
+  <header class="hero text-white"
+    style="background-image:url('https://images.unsplash.com/photo-1494145904049-9e3b0627f7a5?auto=format&fit=crop&w=1600&q=60')">
+    <div class="overlay" aria-hidden="true"></div>
+    <div class="container hero-inner text-center">
+      <div class="row justify-content-center">
+        <div class="col-lg-8" data-aos="fade-down">
+          <h1 class="display-5 fw-bold">Building with Purpose & Precision</h1>
+          <p class="lead mb-4">Architectural, Civil Engineering & Mural Art Services Based in Mbarara City</p>
+          <a href="#contact" class="btn btn-accent btn-lg me-2"><i class="bi bi-envelope-fill me-2"></i>Request a
+            Quote</a>
+          <a href="#projects" class="btn btn-outline-light btn-lg"><i class="bi bi-images me-2"></i>View Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Services -->
+  <section id="services" class="py-5">
+    <div class="container">
+      <div class="text-center mb-4" data-aos="fade-up">
+        <h2 class="fw-bold">Our Core Services</h2>
+        <p class="text-muted">Comprehensive consultancy from initial planning to finished installations.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-right">
+          <div class="service-card p-4 h-100">
+            <div class="mb-3"><i class="bi bi-building fs-1" aria-hidden="true"></i></div>
+            <h5>Architectural Design</h5>
+            <p class="text-muted">Concept design, detailed drawings, planning approvals and supervision.</p>
+            <p class="small text-muted mb-0"><strong>Deliverable:</strong> Plans, elevations, BOQs, submission packs.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="service-card p-4 h-100">
+            <div class="mb-3"><i class="bi bi-cone-striped fs-1" aria-hidden="true"></i></div>
+            <h5>Civil Engineering</h5>
+            <p class="text-muted">Structural checks, retaining walls, drainage and site works design.</p>
+            <p class="small text-muted mb-0"><strong>Deliverable:</strong> Structural drawings & specifications.</p>
+          </div>
+        </div>
+
+        <div class="col-md-4" data-aos="fade-left">
+          <div class="service-card p-4 h-100">
+            <div class="mb-3"><i class="bi bi-brush fs-1" aria-hidden="true"></i></div>
+            <h5>PWIC Artists — Murals & Art</h5>
+            <p class="text-muted">Interior & exterior murals, commissioned art installations for institutions.</p>
+            <p class="small text-muted mb-0"><strong>Deliverable:</strong> Concept sketches, mockups, installation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="fw-bold">Featured Projects</h2>
+        <p class="text-muted">Selected works across architecture, civil works and murals.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="zoom-in">
+          <article class="project-card position-relative">
+            <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=60"
+              alt="Platinum Building Facility — BWIC Consults">
+            <div class="overlay">
+              <div>
+                <h5 class="mb-0">Platinum Building Facility</h5>
+                <small>Kabale Retaining & paving</small>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+          <article class="project-card position-relative">
+            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=60"
+              alt="Retaining wall project — BWIC Consults">
+            <div class="overlay">
+              <div>
+                <h5 class="mb-0">Kabale Preparatory Retaining Wall</h5>
+                <small>Site stabilisation and landscaping</small>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+          <article class="project-card position-relative">
+            <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070ee5?auto=format&fit=crop&w=1200&q=60"
+              alt="Mural installation by PWIC Artists">
+            <div class="overlay">
+              <div>
+                <h5 class="mb-0">Mural Installation — PWIC Artists</h5>
+                <small>School community mural commission</small>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="#contact" class="btn btn-outline-primary">Request Project Case Study</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process" class="py-5">
+    <div class="container">
+      <div class="text-center mb-4" data-aos="fade-up">
+        <h2 class="fw-bold">How We Work</h2>
+        <p class="text-muted">A simple step-by-step process to take your project from idea to reality.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-3" data-aos="fade-right">
+          <div class="p-3 text-center" style="background:var(--card); border-radius:10px;">
+            <div class="mb-2 fs-3">1</div>
+            <h6>Consultation</h6>
+            <p class="small text-muted">Project brief, site visit & requirements gathering.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3" data-aos="fade-up">
+          <div class="p-3 text-center" style="background:var(--card); border-radius:10px;">
+            <div class="mb-2 fs-3">2</div>
+            <h6>Design</h6>
+            <p class="small text-muted">Concepts, revisions, and approval-ready drawings.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3" data-aos="fade-up">
+          <div class="p-3 text-center" style="background:var(--card); border-radius:10px;">
+            <div class="mb-2 fs-3">3</div>
+            <h6>Documentation</h6>
+            <p class="small text-muted">BOQs, specs, permit submission & tender documents.</p>
+          </div>
+        </div>
+
+        <div class="col-md-3" data-aos="fade-left">
+          <div class="p-3 text-center" style="background:var(--card); border-radius:10px;">
+            <div class="mb-2 fs-3">4</div>
+            <h6>Construction</h6>
+            <p class="small text-muted">Supervision & handover, quality assurance on site.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA strip -->
+  <section class="py-4">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 cta-strip p-3"
+        style="background:var(--primary); color:white; border-radius:10px;">
+        <div>
+          <h5 class="mb-0">Ready to start your project?</h5>
+          <small class="text-white-50">Tell us about it we'll prepare a free initial assessment.</small>
+        </div>
+        <div>
+          <a href="#contact" class="btn btn-light">Get a Free Assessment</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-4" data-aos="fade-up">
+        <h2 class="fw-bold">Contact & Request Form</h2>
+        <p class="text-muted">GBK PLAZA RM. K03, Ntare Rd - Mbarara City | +256 772473086 | info@bwicconsults.example
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-6" data-aos="fade-right">
+          <form id="contactForm" onsubmit="return handleForm(event)" class="p-4"
+            style="background:var(--card); border-radius:12px;">
+            <div class="mb-3">
+              <label class="form-label">Full name</label>
+              <input required class="form-control" id="name" placeholder="Your name">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input required type="email" class="form-control" id="email" placeholder="you@example.com">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phone</label>
+              <input class="form-control" id="phone" placeholder="+256 7xxxxxxx">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Service Interested</label>
+              <select class="form-select" id="service">
+                <option>Architectural Design</option>
+                <option>Civil Engineering</option>
+                <option>PWIC Artists Murals</option>
+                <option>Site Survey & BOQ</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Project brief</label>
+              <textarea class="form-control" id="brief" rows="4" placeholder="Brief description"></textarea>
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-accent" type="submit"><i class="bi bi-send me-2"></i>Send Request</button>
+              <small id="formHelp" class="text-muted">This is a demo form — connect to your mail server or backend to
+                receive messages.</small>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="p-3" style="background:var(--card); border-radius:12px;">
+            <h5>Office & Map</h5>
+            <p class="text-muted mb-1"><strong>Address:</strong> GBK PLAZA RM. K03, Ntare Rd - Mbarara City</p>
+            <p class="text-muted mb-3"><strong>Working hours:</strong> Mon — Fri: 8:00 — 17:00</p>
+
+            <!-- Embedded map (static image fallback) -->
+            <div style="border-radius:8px; overflow:hidden;">
+              <img src="https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=1200&q=60"
+                alt="Map placeholder" style="width:100%;display:block;object-fit:cover;height:320px;">
+            </div>
+
+            <div class="mt-3">
+              <h6 class="mb-1">Follow Us</h6>
+              <a href="#" class="me-2 text-decoration-none" aria-label="Facebook"><i
+                  class="bi bi-facebook fs-4"></i></a>
+              <a href="#" class="me-2 text-decoration-none" aria-label="Instagram"><i
+                  class="bi bi-instagram fs-4"></i></a>
+              <a href="#" class="me-2 text-decoration-none" aria-label="LinkedIn"><i
+                  class="bi bi-linkedin fs-4"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-4">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-md-start text-center mb-3 mb-md-0">
+          <strong>BWIC Consults</strong><br>
+          <small>GBK PLAZA RM. K03, Ntare Rd - Mbarara City</small>
+        </div>
+        <div class="col-md-6 text-md-end text-center">
+          <small>© <span id="year"></span> BWIC Consults — All rights reserved</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Initialize AOS
+    AOS.init({ duration: 900, once: true, offset: 80 });
+
+    // Theme toggle (persist in localStorage)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeDot = document.getElementById('themeDot');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = localStorage.getItem('bwic-theme');
+
+    function applyTheme(isDark) {
+      if (isDark) { document.documentElement.classList.add('dark-mode'); themeDot.style.transform = 'translateX(16px)'; }
+      else { document.documentElement.classList.remove('dark-mode'); themeDot.style.transform = 'translateX(0)'; }
+    }
+
+    // Initial
+    if (saved === null) {
+      applyTheme(prefersDark);
+    } else {
+      applyTheme(saved === 'dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark-mode');
+      applyTheme(isDark);
+      localStorage.setItem('bwic-theme', isDark ? 'dark' : 'light');
+    });
+
+    // Contact form demo handler
+    function handleForm(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim() || '—';
+      const email = document.getElementById('email').value.trim() || '—';
+      const service = document.getElementById('service').value;
+      const brief = document.getElementById('brief').value.trim() || '—';
+
+      // For production: send via fetch to your backend (example commented)
+      // fetch('/send', {method:'POST', body: JSON.stringify({name,email,service,brief})})
+
+      // Show demo success
+      const help = document.getElementById('formHelp');
+      help.textContent = 'Thanks ' + name + '! Your request was captured (demo). Connect the form to a backend to receive messages.';
+      help.style.color = 'green';
+
+      // clear after short delay
+      setTimeout(() => {
+        document.getElementById('contactForm').reset();
+        help.textContent = 'This is a demo form — connect to your mail server or backend to receive messages.';
+        help.style.color = '';
+      }, 4500);
+      return false;
+    }
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({ top: target.offsetTop - 70, behavior: 'smooth' });
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>
